@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tractor Sales & Tech Adaptation Interview</title>
+  <!-- Google Fonts for a modern look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f4f8;
+      color: #424242;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .section {
+      margin-bottom: 30px;
+      border-left: 5px solid #2e7d32;
+      padding-left: 20px;
+    }
+    .section-title {
+      font-size: 1.5em;
+      color: #388e3c;
+      margin-bottom: 15px;
+    }
+    .question {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .question p {
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #2e7d32;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      background-color: #1b5e20;
+    }
+    .response-area {
+      margin-top: 10px;
+    }
+    /* Updated styling for text areas */
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #90caf9;
+      border-radius: 6px;
+      min-height: 80px;
+      margin-bottom: 10px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1em;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s;
+    }
+    textarea:focus {
+      border-color: #42a5f5;
+      outline: none;
+    }
+    .follow-up {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #e8f5e9;
+      border-left: 4px solid #2e7d32;
+    }
+    /* Branching questions container */
+    .branching-questions {
+      margin-top: 10px;
+    }
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    /* Progress bar inside the card near the bottom */
+    #progress-bar-container {
+      width: 100%;
+      height: 10px;
+      background-color: #ddd;
+      margin-top: 20px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    #progress {
+      height: 100%;
+      width: 0;
+      transition: width 0.3s, background-color 0.3s;
+    }
+    .hidden {
+      display: none;
+    }
+    #recording-status {
+      color: #d32f2f;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .selected {
+      background-color: #66bb6a;
+    }
+    /* Notification styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      background-color: #66bb6a;
+      color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      transform: translateY(-100px);
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1001;
+    }
+    .notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tractor Sales & Tech Adaptation Interview</h1>
+
+    <!-- Introduction Section -->
+    <div id="section-intro" class="section">
+      <div class="section-title">Welcome</div>
+      <p>
+        Thank you for taking the time to speak with us. As a seasoned tractor salesperson who started before the digital age, your insights on adapting to modern technology are invaluable.
+      </p>
+      <p>
+        We’d like to record our conversation for accuracy. May I have your permission to record?
+      </p>
+      <div class="question">
+        <button onclick="handleRecordingPermission(true)">Allow Recording</button>
+        <button onclick="handleRecordingPermission(false)">Decline Recording</button>
+      </div>
+      <div id="recording-status" class="hidden">Recording in progress...</div>
+    </div>
+
+    <!-- Section 1: General Technology Use -->
+    <div id="section-1" class="section hidden">
+      <div class="section-title">Section 1: General Technology Use</div>
+
+      <div class="question">
+        <p>1. How do you feel about the current role of technology in everyday business?</p>
+        <button onclick="showResponseArea('q1-1')">Ask Question</button>
+        <button onclick="skipQuestion('q1-1')">Skip Question</button>
+        <div id="q1-1" class="response-area hidden">
+          <textarea placeholder="Record your thoughts here..."></textarea>
+          <button onclick="saveResponse('q1-1')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. What digital devices or tools do you use most in your day-to-day work?</p>
+        <button onclick="showResponseArea('q1-2')">Ask Question</button>
+        <button onclick="skipQuestion('q1-2')">Skip Question</button>
+        <div id="q1-2" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q1-2')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. What benefits have you noticed from incorporating technology into your work?</p>
+        <button onclick="showResponseArea('q1-3')">Ask Question</button>
+        <button onclick="skipQuestion('q1-3')">Skip Question</button>
+        <div id="q1-3" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q1-3')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Have you encountered any challenges or frustrations when adapting to new tech systems?</p>
+        <button onclick="showResponseArea('q1-4')">Ask Question</button>
+        <button onclick="skipQuestion('q1-4')">Skip Question</button>
+        <div id="q1-4" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q1-4')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. Which learning methods do you prefer when adopting new digital tools? (e.g., workshops, online tutorials)</p>
+        <button onclick="showResponseArea('q1-5')">Ask Question</button>
+        <button onclick="skipQuestion('q1-5')">Skip Question</button>
+        <div id="q1-5" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q1-5')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="nextSection('section-2')">Next Section</button>
+      </div>
+    </div>
+
+    <!-- Section 2: Digital Business Landscape for Tractor Sales -->
+    <div id="section-2" class="section hidden">
+      <div class="section-title">Section 2: Digital Business Landscape for Tractor Sales</div>
+
+      <div class="question">
+        <p>1. How has your business begun to integrate online sales or digital marketing for your tractors?</p>
+        <button onclick="showResponseArea('q2-1')">Ask Question</button>
+        <button onclick="skipQuestion('q2-1')">Skip Question</button>
+        <div id="q2-1" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q2-1')">Save Response</button>
+        </div>
+      </div>
+
+      <!-- Branching Question -->
+      <div class="question">
+        <p>
+          2. What digital tools have you adopted specifically for managing your tractor sales? (e.g., CRM systems, online advertising) (Branches)
+        </p>
+        <button onclick="showResponseArea('q2-2'); showResponseArea('q2-2-branches')">Ask Question</button>
+        <button onclick="skipQuestion('q2-2')">Skip Question</button>
+        <div id="q2-2" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q2-2')">Save Response</button>
+        </div>
+        <div id="q2-2-branches" class="branching-questions hidden">
+          <div class="follow-up">
+            <p>Branch 1: How has this tool improved your workflow? Which is your favorite?</p>
+            <textarea placeholder="Record your follow-up response here..."></textarea>
+            <button onclick="saveResponse('q2-2-branch1')">Save Branch 1</button>
+          </div>
+          <div class="follow-up">
+            <p>Branch 2: Why have you decided not to implement any digital tools?</p>
+            <textarea placeholder="Record your follow-up response here..."></textarea>
+            <button onclick="saveResponse('q2-2-branch2')">Save Branch 2</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Can you describe how a typical day has changed since you started using digital tools for sales?</p>
+        <button onclick="showResponseArea('q2-3')">Ask Question</button>
+        <button onclick="skipQuestion('q2-3')">Skip Question</button>
+        <div id="q2-3" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q2-3')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. How do you balance traditional personal sales with digital marketing approaches?</p>
+        <button onclick="showResponseArea('q2-4')">Ask Question</button>
+        <button onclick="skipQuestion('q2-4')">Skip Question</button>
+        <div id="q2-4" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q2-4')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. Which digital training or support methods have you found most effective?</p>
+        <button onclick="showResponseArea('q2-5')">Ask Question</button>
+        <button onclick="skipQuestion('q2-5')">Skip Question</button>
+        <div id="q2-5" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q2-5')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="previousSection('section-1')">Previous Section</button>
+        <button onclick="nextSection('section-3')">Next Section</button>
+      </div>
+    </div>
+
+    <!-- Section 3: Positive Experiences in Tractor Sales with Digital Tools -->
+    <div id="section-3" class="section hidden">
+      <div class="section-title">Section 3: Positive Experiences in Tractor Sales</div>
+
+      <div class="question">
+        <p>1. Can you share an example where a digital tool or online platform boosted your tractor sales?</p>
+        <button onclick="showResponseArea('q3-1')">Ask Question</button>
+        <button onclick="skipQuestion('q3-1')">Skip Question</button>
+        <div id="q3-1" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q3-1')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. What aspects of your digital marketing efforts have been most beneficial?</p>
+        <button onclick="showResponseArea('q3-2')">Ask Question</button>
+        <button onclick="skipQuestion('q3-2')">Skip Question</button>
+        <div id="q3-2" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q3-2')">Save Response</button>
+        </div>
+      </div>
+
+      <!-- Branching Question -->
+      <div class="question">
+        <p>
+          3. How did you overcome initial hesitations or challenges when moving to digital sales? (Follow Ups)
+        </p>
+        <button onclick="showResponseArea('q3-3'); showResponseArea('q3-3-branches')">Ask Question</button>
+        <button onclick="skipQuestion('q3-3')">Skip Question</button>
+        <div id="q3-3" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q3-3')">Save Response</button>
+        </div>
+        <div id="q3-3-branches" class="branching-questions hidden">
+          <div class="follow-up">
+            <p>Follow-up 1: What specific strategies helped you overcome these challenges?</p>
+            <textarea placeholder="Record your follow-up response here..."></textarea>
+            <button onclick="saveResponse('q3-3-branch1')">Save Follow-up 1</button>
+          </div>
+          <div class="follow-up">
+            <p>Follow-up 2: Would you recommend these strategies to others in a similar situation?</p>
+            <textarea placeholder="Record your follow-up response here..."></textarea>
+            <button onclick="saveResponse('q3-3-branch2')">Save Follow-up 2</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="previousSection('section-2')">Previous Section</button>
+        <button onclick="nextSection('section-4')">Next Section</button>
+      </div>
+    </div>
+
+    <!-- Section 4: Challenges with Digital Adaptation in Tractor Sales -->
+    <div id="section-4" class="section hidden">
+      <div class="section-title">Section 4: Challenges with Digital Adaptation</div>
+
+      <div class="question">
+        <p>1. What digital platform or tool has been most challenging for your tractor business?</p>
+        <button onclick="showResponseArea('q4-1')">Ask Question</button>
+        <button onclick="skipQuestion('q4-1')">Skip Question</button>
+        <div id="q4-1" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q4-1')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. Can you detail difficulties encountered when shifting from traditional to digital sales?</p>
+        <button onclick="showResponseArea('q4-2')">Ask Question</button>
+        <button onclick="skipQuestion('q4-2')">Skip Question</button>
+        <div id="q4-2" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q4-2')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Have technical issues ever disrupted your business operations? Please explain.</p>
+        <button onclick="showResponseArea('q4-3')">Ask Question</button>
+        <button onclick="skipQuestion('q4-3')">Skip Question</button>
+        <div id="q4-3" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q4-3')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Are there aspects of the digital transition that you find emotionally challenging? Please elaborate.</p>
+        <button onclick="showResponseArea('q4-4')">Ask Question</button>
+        <button onclick="skipQuestion('q4-4')">Skip Question</button>
+        <div id="q4-4" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q4-4')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="previousSection('section-3')">Previous Section</button>
+        <button onclick="nextSection('section-5')">Next Section</button>
+      </div>
+    </div>
+
+    <!-- Section 5: Learning & Adaptation in Tractor Sales -->
+    <div id="section-5" class="section hidden">
+      <div class="section-title">Section 5: Learning & Adaptation</div>
+
+      <div class="question">
+        <p>1. When learning new digital tools for your business, which method works best for you? (e.g., step-by-step guides, video tutorials, in-person workshops)</p>
+        <button onclick="showResponseArea('q5-1')">Ask Question</button>
+        <button onclick="skipQuestion('q5-1')">Skip Question</button>
+        <div id="q5-1" class="response-area hidden">
+          <div class="option-buttons">
+            <button onclick="selectPreference(this)">Step-by-Step Guides</button>
+            <button onclick="selectPreference(this)">Video Tutorials</button>
+            <button onclick="selectPreference(this)">In-Person Workshops</button>
+            <button onclick="selectPreference(this)">One-on-One Training</button>
+          </div>
+          <textarea id="q5-1-notes" placeholder="Additional notes..."></textarea>
+          <button onclick="saveResponse('q5-1')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. Can you share an example where learning a new digital tool directly improved your tractor sales?</p>
+        <button onclick="showResponseArea('q5-2')">Ask Question</button>
+        <button onclick="skipQuestion('q5-2')">Skip Question</button>
+        <div id="q5-2" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q5-2')">Save Response</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Do you prefer to learn technology independently, or do you seek help from consultants or peers? Why?</p>
+        <button onclick="showResponseArea('q5-3')">Ask Question</button>
+        <button onclick="skipQuestion('q5-3')">Skip Question</button>
+        <div id="q5-3" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q5-3')">Save Response</button>
+        </div>
+      </div>
+
+      <!-- New Branching Question -->
+      <div class="question">
+        <p>4. What improvements would you suggest for digital training methods? (Follow ups)</p>
+        <button onclick="showResponseArea('q5-4'); showResponseArea('q5-4-branches')">Ask Question</button>
+        <button onclick="skipQuestion('q5-4')">Skip Question</button>
+        <div id="q5-4" class="response-area hidden">
+          <textarea placeholder="Record your response here..."></textarea>
+          <button onclick="saveResponse('q5-4')">Save Response</button>
+        </div>
+        <div id="q5-4-branches" class="branching-questions hidden">
+          <div class="follow-up">
+            <p>Follow-up 1: How do you think digital training could be made more interactive?</p>
+            <textarea placeholder="Record your follow-up response here..."></textarea>
+            <button onclick="saveResponse('q5-4-branch1')">Save Follow-up 1</button>
+          </div>
+          <div class="follow-up">
+            <p>Follow-up 2: What obstacles do you face in accessing digital training resources?</p>
+            <textarea placeholder="Record your follow-up response here..."></textarea>
+            <button onclick="saveResponse('q5-4-branch2')">Save Follow-up 2</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="previousSection('section-4')">Previous Section</button>
+        <button onclick="nextSection('conclusion')">Go to Conclusion</button>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div id="conclusion" class="section hidden">
+      <div class="section-title">Conclusion</div>
+      <p>
+        Thank you for sharing your experiences and insights. Your feedback is essential to understanding how traditional tractor sales can successfully adapt to a digital marketplace.
+      </p>
+      <p>
+        Do you have any final thoughts or suggestions on how digital tools could be better tailored for your business?
+      </p>
+      <div class="question">
+        <button onclick="showResponseArea('final-thoughts')">Ask Question</button>
+        <!-- Skip button removed for the conclusion -->
+        <div id="final-thoughts" class="response-area hidden">
+          <textarea placeholder="Record your final thoughts here..."></textarea>
+          <button onclick="saveResponse('final-thoughts')">Save Response</button>
+        </div>
+      </div>
+
+      <div id="end-recording" class="hidden">
+        <p>Thank you for your time.</p>
+        <button onclick="endInterview()">End Interview</button>
+      </div>
+    </div>
+
+    <!-- Interview Complete -->
+    <div id="interview-complete" class="section hidden">
+      <div class="section-title">Interview Complete</div>
+      <p>The interview has been completed. Thank you for your time!</p>
+      <button onclick="exportResponses()">Export Responses</button>
+      <button onclick="restartInterview()">Restart Interview</button>
+    </div>
+
+    <!-- Progress bar placed near the bottom of the card -->
+    <div id="progress-bar-container">
+      <div id="progress"></div>
+    </div>
+  </div>
+
+  <!-- Notification element -->
+  <div id="notification" class="notification">
+    Response saved successfully!
+  </div>
+
+  <script>
+    // Mapping of question IDs to full question texts
+    const questionTexts = {
+      "q1-1": "How do you feel about the current role of technology in everyday business?",
+      "q1-2": "What digital devices or tools do you use most in your day-to-day work?",
+      "q1-3": "What benefits have you noticed from incorporating technology into your work?",
+      "q1-4": "Have you encountered any challenges or frustrations when adapting to new tech systems?",
+      "q1-5": "Which learning methods do you prefer when adopting new digital tools? (e.g., workshops, online tutorials)",
+      
+      "q2-1": "How has your business begun to integrate online sales or digital marketing for your tractors?",
+      "q2-2": "What digital tools have you adopted specifically for managing your tractor sales? (e.g., CRM systems, online advertising)",
+      "q2-2-branch1": "Follow-up 1: How has this tool improved your workflow?",
+      "q2-2-branch2": "Follow-up 2: What challenges did you face when integrating this tool?",
+      "q2-3": "Can you describe how a typical day has changed since you started using digital tools for sales?",
+      "q2-4": "How do you balance traditional personal sales with digital marketing approaches?",
+      "q2-5": "Which digital training or support methods have you found most effective?",
+      
+      "q3-1": "Can you share an example where a digital tool or online platform boosted your tractor sales?",
+      "q3-2": "What aspects of your digital marketing efforts have been most beneficial?",
+      "q3-3": "How did you overcome initial hesitations or challenges when moving to digital sales?",
+      "q3-3-branch1": "Follow-up 1: What specific strategies helped you overcome these challenges?",
+      "q3-3-branch2": "Follow-up 2: Would you recommend these strategies to others in a similar situation?",
+      
+      "q4-1": "What digital platform or tool has been most challenging for your tractor business?",
+      "q4-2": "Can you detail difficulties encountered when shifting from traditional to digital sales?",
+      "q4-3": "Have technical issues ever disrupted your business operations? Please explain.",
+      "q4-4": "Are there aspects of the digital transition that you find emotionally challenging? Please elaborate?",
+      
+      "q5-1": "When learning new digital tools for your business, which method works best for you? (e.g., step-by-step guides, video tutorials, in-person workshops)",
+      "q5-2": "Can you share an example where learning a new digital tool directly improved your tractor sales?",
+      "q5-3": "Do you prefer to learn technology independently, or do you seek help from consultants or peers? Why?",
+      "q5-4": "What improvements would you suggest for digital training methods?",
+      "q5-4-branch1": "Follow-up 1: How do you think digital training could be made more interactive?",
+      "q5-4-branch2": "Follow-up 2: What obstacles do you face in accessing digital training resources?",
+      
+      "final-thoughts": "Do you have any final thoughts or suggestions on how digital tools could be better tailored for your business?"
+    };
+
+    let currentSection = 'section-intro';
+    let sections = [
+      'section-intro',
+      'section-1',
+      'section-2',
+      'section-3',
+      'section-4',
+      'section-5',
+      'conclusion',
+      'interview-complete'
+    ];
+    let responses = {};
+    let recording = false;
+    let skippedCount = 0;
+
+    function handleRecordingPermission(granted) {
+      if (granted) {
+        recording = true;
+        document.getElementById('recording-status').classList.remove('hidden');
+      }
+      nextSection('section-1');
+    }
+
+    // Updated: remove the "hidden" class to show an element
+    function showResponseArea(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function saveResponse(id) {
+      const textarea = document.getElementById(id).querySelector('textarea');
+      responses[id] = textarea.value;
+      showNotification("Response saved successfully!");
+    }
+    
+    function skipQuestion(id) {
+      skippedCount++;
+      responses[id] = "skipped";
+      document.getElementById(id).classList.add('hidden');
+      showNotification("Question skipped. Total skipped: " + skippedCount);
+    }
+
+    function showNotification(message = "Response saved successfully!") {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 2000);
+    }
+
+    function selectPreference(button) {
+      const buttons = button.parentElement.querySelectorAll('button');
+      buttons.forEach(b => b.classList.remove('selected'));
+      button.classList.add('selected');
+      document.getElementById('q5-1-notes').value += button.textContent + ', ';
+    }
+
+    function nextSection(nextId) {
+      document.getElementById(currentSection).classList.add('hidden');
+      document.getElementById(nextId).classList.remove('hidden');
+      currentSection = nextId;
+      updateProgress();
+      if (nextId === 'conclusion') {
+        document.getElementById('end-recording').classList.remove('hidden');
+      }
+    }
+
+    function previousSection(prevId) {
+      document.getElementById(currentSection).classList.add('hidden');
+      document.getElementById(prevId).classList.remove('hidden');
+      currentSection = prevId;
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const currentIndex = sections.indexOf(currentSection);
+      const progressPercentage = Math.floor((currentIndex / (sections.length - 1)) * 100);
+      const progressElem = document.getElementById('progress');
+      progressElem.style.width = progressPercentage + '%';
+      // Calculate color from red (0%) to green (100%)
+      const red = Math.round(255 * (1 - progressPercentage / 100));
+      const green = Math.round(255 * (progressPercentage / 100));
+      progressElem.style.backgroundColor = `rgb(${red}, ${green}, 0)`;
+    }
+
+    function endInterview() {
+      if (recording) {
+        recording = false;
+        document.getElementById('recording-status').classList.add('hidden');
+      }
+      nextSection('interview-complete');
+    }
+
+    // Export responses as a text file with "Q:" and "A:" for each question
+    function exportResponses() {
+      let output = "";
+      for (let key in questionTexts) {
+        let question = questionTexts[key];
+        let answer = responses[key] || "No response";
+        output += "Q: " + question + "\n";
+        output += "A: " + answer + "\n\n";
+      }
+      const blob = new Blob([output], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tractor_sales_responses.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      alert('Responses exported as text file.');
+    }
+
+    function restartInterview() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
